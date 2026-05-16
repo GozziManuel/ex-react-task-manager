@@ -5,9 +5,12 @@ export default function Task({ title, description, createdAt, status, i }) {
       <td>{title}</td>
       <td>{description}</td>
       <td>{createdAt}</td>
+      {/* 
+    //   
+    //  */}
+
       <td className="d-flex justify-content-center align-items-center tableStatus ">
-        {" "}
-        {status}
+        {/* Getting status Color */} {status}
         {status === "To do" ? (
           <div className="redStatus"></div>
         ) : status === "Done" ? (
@@ -15,6 +18,10 @@ export default function Task({ title, description, createdAt, status, i }) {
         ) : (
           <div className="yellowStatus"></div>
         )}
+        {/* 
+        // 
+        
+        // */}
       </td>
     </tr>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function UseHooks() {
+  // GETTING DATA WITH async/await
   const [tasksHooks, setTasksHooks] = useState([]);
 
   const handleAsync = async (url) => {
@@ -21,13 +22,25 @@ export default function UseHooks() {
     resultTasks();
   }, []);
 
+  //
+  // AddTask
+
   const addTask = () => {
     console.log("add");
   };
+
+  //
+  //
+  // RemoveTask
   const removeTask = (index) => {
     // tasks.filter((t, i) => index === i);
     console.log("remove");
   };
+
+  //
+  //
+  //
+  // UptadeTask
   const updateTask = () => {
     console.log("update");
   };

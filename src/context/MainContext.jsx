@@ -4,6 +4,9 @@ import UseHooks from "../hooks/useHooks";
 const MainContext = createContext();
 
 export default function MainProvider({ children }) {
+  //
+  //
+  // Getting Data
   const [tasks, setTasks] = useState([]);
 
   const handleAsync = async (url) => {
@@ -23,6 +26,10 @@ export default function MainProvider({ children }) {
     };
     resultTasks();
   }, []);
+
+  //
+  //
+  // custom Hooks
   const { updateTask, addTask, removeTask } = UseHooks();
 
   const values = { tasks, setTasks, updateTask, addTask, removeTask };
