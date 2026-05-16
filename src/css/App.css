@@ -22,3 +22,24 @@
     background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
+.redStatus {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 20px;
+}
+.greenStatus {
+  width: 10px;
+  height: 10px;
+  background-color: lightgreen;
+  border-radius: 20px;
+}
+.yellowStatus {
+  width: 10px;
+  height: 10px;
+  background-color: yellow;
+  border-radius: 20px;
+}
+.tableStatus {
+  gap: 10px;
+}

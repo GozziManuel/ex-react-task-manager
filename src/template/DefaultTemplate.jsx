@@ -5,7 +5,7 @@ export default function DefaultTemplate() {
   return (
     <>
       <NavBar />
-      <section>
+      <section className="mx-5">
         <Outlet />
       </section>
     </>
