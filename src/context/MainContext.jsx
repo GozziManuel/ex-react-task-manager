@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import UseHooks from "../hooks/useHooks";
 
 const MainContext = createContext();
 
@@ -22,8 +23,9 @@ export default function MainProvider({ children }) {
     };
     resultTasks();
   }, []);
+  const { updateTask, addTask, removeTask } = UseHooks();
 
-  const values = { tasks, setTasks };
+  const values = { tasks, setTasks, updateTask, addTask, removeTask };
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }
 
