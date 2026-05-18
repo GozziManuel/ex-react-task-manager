@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMain } from "../context/MainContext";
 
 export default function TaskAdd() {
@@ -7,22 +7,19 @@ export default function TaskAdd() {
     description: "",
     status: "",
   });
+
+  const { addTask, InputValidation, tasks } = useMain();
+
   const [inputError, inputSetError] = useState(false);
+
+  useEffect(() => {
+    if (InputValidation?.success === false) {
+      inputSetError(true);
+    }
+  }, [InputValidation]);
 
   const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<>?/`~";
 
-  const titleValidation = () => {
-    const titleTrimmed = input.title.trim();
-    const emptyInput = titleTrimmed === "";
-
-    const titleSymbols = input.title
-      .split("")
-      .some((el) => symbols.includes(el));
-
-    return emptyInput || titleSymbols;
-  };
-
-  const { tasks } = useMain();
   const InputRef = useRef();
   //
   //
@@ -46,7 +43,7 @@ export default function TaskAdd() {
   //
 
   const handleChange = (e) => {
-    const { value, name } = event.target;
+    const { value, name } = e.target;
     console.log(value, name);
 
     setInput((curr) => ({ ...curr, [name]: value }));
@@ -54,15 +51,12 @@ export default function TaskAdd() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (titleValidation() === true) {
-      console.log("Input Vuoto");
-      inputSetError(true);
-    } else {
-      inputSetError(false);
-      console.log({ ...input, status: InputRef.current.value });
-    }
+    inputSetError(false);
+    const UpdatedInputs = { ...input, status: InputRef.current.value };
+    setInput(UpdatedInputs);
+    addTask(UpdatedInputs);
   };
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       <div className="form-group mt-2">
@@ -110,10 +104,10 @@ export default function TaskAdd() {
           })}
         </select>
       </div>
-      <button class="btn btn-secondary mt-3">Secondary</button>
+      <button className="btn btn-secondary mt-3">Secondary</button>
       {inputError && (
-        <div class="alert alert-danger mt-3" role="alert">
-          Input Vuoto o Carattere non hai inserito Dei caratteri speciali
+        <div className="alert alert-danger mt-3" role="alert">
+          {InputValidation.message}
         </div>
       )}
     </form>

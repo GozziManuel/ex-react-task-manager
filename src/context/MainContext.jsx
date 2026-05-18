@@ -8,6 +8,7 @@ export default function MainProvider({ children }) {
   //
   // Getting Data
   const [tasks, setTasks] = useState([]);
+  const [InputValidation, setInputValidation] = useState({});
 
   const handleAsync = async (url) => {
     const result = await fetch(url);
@@ -29,10 +30,23 @@ export default function MainProvider({ children }) {
 
   //
   //
-  // custom Hooks
-  const { updateTask, addTask, removeTask } = UseHooks();
+  // custom Hooks (pass tasks and setTasks to avoid circular import)
+  const { updateTask, addTask, removeTask } = UseHooks(
+    tasks,
+    setTasks,
+    InputValidation,
+    setInputValidation,
+  );
 
-  const values = { tasks, setTasks, updateTask, addTask, removeTask };
+  const values = {
+    tasks,
+    setTasks,
+    updateTask,
+    addTask,
+    removeTask,
+    InputValidation,
+    setInputValidation,
+  };
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }
 
