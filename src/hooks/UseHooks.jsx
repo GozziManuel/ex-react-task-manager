@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UseHooks(
   tasks,
   setTasks,
   InputValidation,
   setInputValidation,
+  errorElimation,
+  setErrorElimation,
 ) {
   // GETTING DATA WITH async/await
+
   const [tasksHooks, setTasksHooks] = useState([]);
   const handleAsync = async (url) => {
     const result = await fetch(url);
@@ -41,7 +45,6 @@ export default function UseHooks(
     fetch(`http://localhost:3001/tasks`, PostData)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setInputValidation(data);
         if (data.success === true && data.task) {
           setTasks((curr) => [...curr, data.task]);
@@ -54,10 +57,25 @@ export default function UseHooks(
   //
   // RemoveTask
   const removeTask = (index) => {
-    // tasks.filter((t, i) => index === i);
-    console.log("remove");
-  };
+    const PostData = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
+    fetch(`http://localhost:3001/tasks/${index}`, PostData)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success === true) {
+          const removedObj = tasks.filter((el) => el.id !== index);
+          setErrorElimation(data);
+          setTasks(removedObj);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
   //
   //
   //

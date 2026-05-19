@@ -11,10 +11,17 @@ export default function TaskAdd() {
   const { addTask, InputValidation, tasks } = useMain();
 
   const [inputError, inputSetError] = useState(false);
-
+  const [confirmForm, setConfirmForm] = useState(false);
   useEffect(() => {
     if (InputValidation?.success === false) {
       inputSetError(true);
+    } else {
+      setInput({
+        title: "",
+        description: "",
+        status: (InputRef.current.value = ""),
+      });
+      setConfirmForm(true);
     }
   }, [InputValidation]);
 
@@ -51,9 +58,9 @@ export default function TaskAdd() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setConfirmForm(false);
     inputSetError(false);
     const UpdatedInputs = { ...input, status: InputRef.current.value };
-    setInput(UpdatedInputs);
     addTask(UpdatedInputs);
   };
 
@@ -108,6 +115,11 @@ export default function TaskAdd() {
       {inputError && (
         <div className="alert alert-danger mt-3" role="alert">
           {InputValidation.message}
+        </div>
+      )}
+      {confirmForm && (
+        <div className="alert alert-success mt-3" role="alert">
+          Task Creata con Successo!
         </div>
       )}
     </form>
