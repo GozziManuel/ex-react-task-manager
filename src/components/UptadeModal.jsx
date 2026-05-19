@@ -5,17 +5,19 @@ export default function UptadeModal({
   setModalEditAppear,
   CurrentId,
   setModalEdit,
+  CurrentTask,
 }) {
   const UniqueStatus = ["To do", "Done", "Doing"];
   const { updateTask, dataForPut, setDataForPut } = useMain();
+  console.log(CurrentTask);
+  const InputRefEdit = useRef();
 
   const [uptadeInput, setUptadeInput] = useState({
-    title: "",
-    description: "",
-    status: "",
+    title: CurrentTask.title,
+    description: CurrentTask.description,
+    status: CurrentTask.status,
   });
   const [problemUpdate, setProblemUpdate] = useState(false);
-  const InputRefEdit = useRef();
 
   //
   const handleEditChange = (e) => {

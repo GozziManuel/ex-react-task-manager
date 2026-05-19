@@ -87,6 +87,7 @@ export default function DetailedTask() {
         createPortal(
           <UptadeModal
             CurrentId={CurrentTask.id}
+            CurrentTask={CurrentTask}
             setModalEditAppear={() => setModalEditAppear(false)}
             setModalEdit={setModalEditAppear}
           />,
