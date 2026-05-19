@@ -7,6 +7,7 @@ export default function TaskAdd() {
     description: "",
     status: "",
   });
+  const UniqueStatus = ["To do", "Done", "Doing"];
 
   const { addTask, InputValidation, tasks } = useMain();
 
@@ -15,13 +16,15 @@ export default function TaskAdd() {
   useEffect(() => {
     if (InputValidation?.success === false) {
       inputSetError(true);
-    } else {
+      setConfirmForm(false);
+    } else if (InputValidation?.success === true) {
+      inputSetError(false);
+      setConfirmForm(true);
       setInput({
         title: "",
         description: "",
-        status: (InputRef.current.value = ""),
+        status: "",
       });
-      setConfirmForm(true);
     }
   }, [InputValidation]);
 
@@ -30,21 +33,7 @@ export default function TaskAdd() {
   const InputRef = useRef();
   //
   //
-  //
-  // Getting Select Status
 
-  const AllStatus = tasks.map((el) => el.status);
-  const UniqueStatus = [];
-  const OtherStatus = [];
-
-  for (let index = 0; index < AllStatus.length; index++) {
-    const element = AllStatus[index];
-    if (UniqueStatus.includes(element)) {
-      OtherStatus.push(element);
-    } else {
-      UniqueStatus.push(element);
-    }
-  }
   //
   //
   //
@@ -58,10 +47,14 @@ export default function TaskAdd() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setConfirmForm(false);
-    inputSetError(false);
+
     const UpdatedInputs = { ...input, status: InputRef.current.value };
     addTask(UpdatedInputs);
+    // setInput({
+    //   title: "",
+    //   description: "",
+    //   status: (InputRef.current.value = ""),
+    // });
   };
 
   return (

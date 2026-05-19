@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const MemoTask = memo(Task);
 export default function TaskList() {
   const { tasks } = useMain();
-  console.log(tasks);
 
   return (
     <>
@@ -16,7 +15,9 @@ export default function TaskList() {
             <th scope="col">Task</th>
             <th scope="col">description</th>
             <th scope="col">When?</th>
-            <th scope="col">Status</th>
+            <th scope="col" className="text-center">
+              Status
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>

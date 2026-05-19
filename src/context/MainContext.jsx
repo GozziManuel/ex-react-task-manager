@@ -10,6 +10,7 @@ export default function MainProvider({ children }) {
   const [tasks, setTasks] = useState([]);
   const [InputValidation, setInputValidation] = useState({});
   const [errorElimation, setErrorElimation] = useState(null);
+  const [dataForPut, setDataForPut] = useState(null);
 
   const handleAsync = async (url) => {
     const result = await fetch(url);
@@ -42,6 +43,8 @@ export default function MainProvider({ children }) {
     setInputValidation,
     errorElimation,
     setErrorElimation,
+    dataForPut,
+    setDataForPut,
   );
 
   const values = {
@@ -54,6 +57,8 @@ export default function MainProvider({ children }) {
     setInputValidation,
     errorElimation,
     setErrorElimation,
+    dataForPut,
+    setDataForPut,
   };
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }

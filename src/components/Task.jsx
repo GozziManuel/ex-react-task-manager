@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useMain } from "../context/MainContext";
 
 export default function Task({
   title,
@@ -34,8 +35,8 @@ export default function Task({
         // */}
         </div>
       </td>
-      <td>
-        <Link className="btn btn-primary" to={`/Task/${ParamId}`}>
+      <td className="text-center">
+        <Link className="btn btn-primary me-4" to={`/Task/${ParamId}`}>
           See Task
         </Link>
       </td>

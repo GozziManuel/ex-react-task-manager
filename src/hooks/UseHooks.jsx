@@ -8,6 +8,8 @@ export default function UseHooks(
   setInputValidation,
   errorElimation,
   setErrorElimation,
+  dataForPut,
+  setDataForPut,
 ) {
   // GETTING DATA WITH async/await
 
@@ -80,8 +82,23 @@ export default function UseHooks(
   //
   //
   // UptadeTask
-  const updateTask = () => {
-    console.log("update");
+  const updateTask = (index, newObj) => {
+    const PostData = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newObj),
+    };
+
+    fetch(`http://localhost:3001/tasks/${index}`, PostData)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setDataForPut(data);
+        setTasks((curr) => curr.map((t) => (t.id === index ? data.task : t)));
+      })
+      .catch((err) => console.error(err));
   };
 
   return { updateTask, addTask, removeTask };
