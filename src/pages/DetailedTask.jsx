@@ -20,7 +20,8 @@ export default function DetailedTask() {
 
   // FINDING CURRENT TASK
   //
-  const CurrentTask = tasks.find((task) => task.id === parseInt(id, 10));
+
+  const CurrentTask = tasks.find((task) => task?.id === parseInt(id, 10));
 
   //
   // VALIDATION
@@ -86,7 +87,7 @@ export default function DetailedTask() {
       {modalEditAppear &&
         createPortal(
           <UptadeModal
-            CurrentId={CurrentTask.id}
+            CurrentId={CurrentTask?.id}
             CurrentTask={CurrentTask}
             setModalEditAppear={() => setModalEditAppear(false)}
             setModalEdit={setModalEditAppear}

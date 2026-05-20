@@ -13,9 +13,9 @@ export default function UptadeModal({
   const InputRefEdit = useRef();
 
   const [uptadeInput, setUptadeInput] = useState({
-    title: CurrentTask.title,
-    description: CurrentTask.description,
-    status: CurrentTask.status,
+    title: CurrentTask?.title,
+    description: CurrentTask?.description,
+    status: CurrentTask?.status,
   });
   const [problemUpdate, setProblemUpdate] = useState(false);
 
@@ -28,6 +28,9 @@ export default function UptadeModal({
 
   //
   useEffect(() => {
+    console.log(dataForPut?.success);
+    if (dataForPut?.success === undefined) return;
+
     if (dataForPut?.success === false) {
       setProblemUpdate(true);
       return;
@@ -43,7 +46,6 @@ export default function UptadeModal({
   //
   const handleSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(dataForPut);
 
     const NewInput = {
       ...uptadeInput,

@@ -96,6 +96,9 @@ export default function UseHooks(
       .then((data) => {
         console.log(data);
         setDataForPut(data);
+
+        if (data.success === false) return;
+
         setTasks((curr) => curr.map((t) => (t.id === index ? data.task : t)));
       })
       .catch((err) => console.error(err));
