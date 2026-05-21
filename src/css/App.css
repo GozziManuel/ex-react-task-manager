@@ -68,3 +68,7 @@
 .sorterTH:hover {
   outline: solid 1px black;
 }
+.inputSearch {
+  width: 40%;
+  height: 20%;
+}

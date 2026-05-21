@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Task from "../components/Task";
 import { useMain } from "../context/MainContext";
 import { Link } from "react-router-dom";
@@ -6,23 +6,31 @@ const MemoTask = memo(Task);
 export default function TaskList() {
   const { tasks } = useMain();
 
+  function debounce(callback, delay) {
+    let timer;
+    return (value) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callback(value);
+      }, delay);
+    };
+  }
   //
   //
   // GETTING DATA FOR SORTING
   const [orderBy, setOrderBy] = useState([]);
   const [arrowStatus, setArrowStatus] = useState(null);
   const [arrowTitle, setArrowTitle] = useState(null);
+  const [arrowWhen, setArrowWhen] = useState(true);
+  const [sortBy, setSortBy] = useState(-1);
+  const [search, setSearch] = useState("");
 
-  const [arrowWhen, setArrowWhen] = useState(false);
-  const [sortBy, setSortBy] = useState(1);
+  //
+  //
+  // Copying TASK AND Base Sorting
   useEffect(() => {
     if (tasks) {
-      setOrderBy(
-        [...tasks].sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-      );
+      setOrderBy([...tasks]);
     }
   }, [tasks]);
 
@@ -130,12 +138,43 @@ export default function TaskList() {
       setSortBy(1);
     }
   };
+  //
+  //
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  //
-  //
+  const debouncedSetSearch = useCallback(
+    debounce((value) => {
+      setDebouncedSearch(value);
+    }, 500),
+    [],
+  );
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+    debouncedSetSearch(value);
+  };
+
+  const displayedTasks = orderBy.filter((t) =>
+    t.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
+  );
+
   return (
-    <>
-      <table className="table table-striped table-dark mt-4 mx-3">
+    <section>
+      <div className="form-floating mb-3 ms-3 inputSearch mt-4 mb-1">
+        <input
+          type="text"
+          className="form-control"
+          id="floatingInput"
+          placeholder="Search Task"
+          //
+          //
+          value={search}
+          onChange={handleSearch}
+        />
+        <label htmlFor="floatingInput">Search Task</label>
+      </div>
+      <table className="table table-striped table-dark mt-2 mx-3">
         <thead>
           <tr>
             <th scope="col" className=""></th>
@@ -144,9 +183,9 @@ export default function TaskList() {
               {arrowTitle === null ? (
                 ""
               ) : arrowTitle ? (
-                <i class="bi bi-arrow-up"></i>
+                <i className="bi bi-arrow-up"></i>
               ) : (
-                <i class="bi bi-arrow-down"></i>
+                <i className="bi bi-arrow-down"></i>
               )}
             </th>
             <th scope="col" className="">
@@ -157,9 +196,9 @@ export default function TaskList() {
               {arrowWhen === null ? (
                 ""
               ) : arrowWhen ? (
-                <i class="bi bi-arrow-up"></i>
+                <i className="bi bi-arrow-up"></i>
               ) : (
-                <i class="bi bi-arrow-down"></i>
+                <i className="bi bi-arrow-down"></i>
               )}
             </th>
             <th
@@ -171,16 +210,16 @@ export default function TaskList() {
               {arrowStatus === null ? (
                 ""
               ) : arrowStatus ? (
-                <i class="bi bi-arrow-up"></i>
+                <i className="bi bi-arrow-up"></i>
               ) : (
-                <i class="bi bi-arrow-down"></i>
+                <i className="bi bi-arrow-down"></i>
               )}
             </th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          {orderBy?.map((t, i) => {
+          {displayedTasks?.map((t, i) => {
             return (
               <MemoTask
                 key={t.id}
@@ -195,6 +234,6 @@ export default function TaskList() {
           })}
         </tbody>
       </table>
-    </>
+    </section>
   );
 }
