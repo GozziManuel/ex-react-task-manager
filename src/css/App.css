@@ -62,3 +62,9 @@
   padding: 20px;
   background-color: white;
 }
+.sorterTH {
+  cursor: pointer;
+}
+.sorterTH:hover {
+  outline: solid 1px black;
+}
