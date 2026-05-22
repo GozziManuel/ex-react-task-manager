@@ -8,6 +8,8 @@ export default function Task({
   status,
   i,
   ParamId,
+  checked,
+  checkboxTracing,
 }) {
   return (
     <tr>
@@ -39,6 +41,13 @@ export default function Task({
         <Link className="btn btn-primary me-4" to={`/Task/${ParamId}`}>
           See Task
         </Link>
+        <input
+          type="checkbox"
+          name="checkbox"
+          id=""
+          checked={checked}
+          onChange={checkboxTracing}
+        />
       </td>
     </tr>
   );

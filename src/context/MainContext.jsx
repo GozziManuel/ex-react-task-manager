@@ -36,7 +36,7 @@ export default function MainProvider({ children }) {
   //
   //
   // custom Hooks (pass tasks and setTasks to avoid circular import)
-  const { updateTask, addTask, removeTask } = UseHooks(
+  const { updateTask, addTask, removeTask, removeMultipleTasks } = UseHooks(
     tasks,
     setTasks,
     InputValidation,
@@ -59,6 +59,7 @@ export default function MainProvider({ children }) {
     setErrorElimation,
     dataForPut,
     setDataForPut,
+    removeMultipleTasks,
   };
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }

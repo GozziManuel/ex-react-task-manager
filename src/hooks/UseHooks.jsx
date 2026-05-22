@@ -104,5 +104,29 @@ export default function UseHooks(
       .catch((err) => console.error(err));
   };
 
-  return { updateTask, addTask, removeTask };
+  const removeMultipleTasks = (array, setArrayForElimination, setCheckBox) => {
+    const promises = array.map((id) =>
+      fetch(`http://localhost:3001/tasks/${id}`, { method: "DELETE" })
+        .then((res) => {
+          if (!res) throw new Error(` ${res.status}`);
+          setTasks((curr) => curr.filter((el) => el.id !== id));
+          return id;
+        })
+        .catch(() => {
+          setTasks((curr) =>
+            curr.map((el) => (el.id === id ? { ...el, status: "error" } : el)),
+          );
+        }),
+    );
+
+    //
+    Promise.allSettled(promises).then((results) => {
+      console.log(results);
+      setArrayForElimination([]);
+      setCheckBox({});
+    });
+    console.log(promises);
+  };
+
+  return { updateTask, addTask, removeTask, removeMultipleTasks };
 }

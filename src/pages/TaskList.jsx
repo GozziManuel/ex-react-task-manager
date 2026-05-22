@@ -4,7 +4,7 @@ import { useMain } from "../context/MainContext";
 import { Link } from "react-router-dom";
 const MemoTask = memo(Task);
 export default function TaskList() {
-  const { tasks } = useMain();
+  const { tasks, removeMultipleTasks } = useMain();
 
   function debounce(callback, delay) {
     let timer;
@@ -19,11 +19,14 @@ export default function TaskList() {
   //
   // GETTING DATA FOR SORTING
   const [orderBy, setOrderBy] = useState([]);
+
+  const [arrayForElimination, setArrayForElimination] = useState([]);
   const [arrowStatus, setArrowStatus] = useState(null);
   const [arrowTitle, setArrowTitle] = useState(null);
   const [arrowWhen, setArrowWhen] = useState(true);
   const [sortBy, setSortBy] = useState(-1);
   const [search, setSearch] = useState("");
+  const [checkBox, setCheckBox] = useState({});
 
   //
   //
@@ -140,6 +143,8 @@ export default function TaskList() {
   };
   //
   //
+
+  // DEBOUNCE
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const debouncedSetSearch = useCallback(
@@ -159,20 +164,48 @@ export default function TaskList() {
     t.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
   );
 
+  //
+  //
+  //
+  const checkboxTracing = (e, i) => {
+    const { checked, type } = e.target;
+    console.log(i);
+    if (checked === true) {
+      setArrayForElimination((curr) => [...curr, i]);
+    } else setArrayForElimination((curr) => curr.filter((el) => el !== i));
+    setCheckBox((curr) => ({ ...curr, [i]: checked }));
+  };
+  const handleRemoveMultipleTasks = () => {
+    removeMultipleTasks(
+      arrayForElimination,
+      setArrayForElimination,
+      setCheckBox,
+    );
+  };
   return (
     <section>
-      <div className="form-floating mb-3 ms-3 inputSearch mt-4 mb-1">
-        <input
-          type="text"
-          className="form-control"
-          id="floatingInput"
-          placeholder="Search Task"
-          //
-          //
-          value={search}
-          onChange={handleSearch}
-        />
-        <label htmlFor="floatingInput">Search Task</label>
+      <div className="">
+        <div className="form-floating mb-3 ms-3  mt-4 mb-1 d-flex justify-content-between">
+          <input
+            type="text"
+            className="form-control inputSearch"
+            id="floatingInput"
+            placeholder="Search Task"
+            //
+            //
+            value={search}
+            onChange={handleSearch}
+          />
+
+          <label htmlFor="floatingInput">Search Task</label>
+          {arrayForElimination.length > 0 ? (
+            <button onClick={() => handleRemoveMultipleTasks()}>
+              Elimina Task Selezionate
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
       <table className="table table-striped table-dark mt-2 mx-3">
         <thead>
@@ -229,6 +262,8 @@ export default function TaskList() {
                 description={t.description}
                 createdAt={t.createdAt}
                 status={t.status}
+                checked={checkBox[t.id] || false}
+                checkboxTracing={(event) => checkboxTracing(event, t.id)}
               />
             );
           })}
