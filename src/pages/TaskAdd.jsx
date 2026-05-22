@@ -13,6 +13,8 @@ export default function TaskAdd() {
 
   const [inputError, inputSetError] = useState(false);
   const [confirmForm, setConfirmForm] = useState(false);
+  const [alreadyExist, setAlreadyExist] = useState(false);
+
   useEffect(() => {
     if (InputValidation?.success === false) {
       inputSetError(true);
@@ -23,7 +25,7 @@ export default function TaskAdd() {
       setInput({
         title: "",
         description: "",
-        status: "",
+        status: (InputRef.current.value = ""),
       });
     }
   }, [InputValidation]);
@@ -40,16 +42,29 @@ export default function TaskAdd() {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    console.log(value, name);
 
     setInput((curr) => ({ ...curr, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const inputTitle = input.title.trim().toLocaleLowerCase();
+    const AlreadyExist = tasks.map((el) =>
+      inputTitle.includes(el.title.trim().toLocaleLowerCase()),
+    );
+    if (AlreadyExist.includes(true)) {
+      console.log("Già esiste");
+      setConfirmForm(false);
 
-    const UpdatedInputs = { ...input, status: InputRef.current.value };
-    addTask(UpdatedInputs);
+      inputSetError(false);
+
+      setAlreadyExist(true);
+      return;
+    } else {
+      setAlreadyExist(false);
+      const UpdatedInputs = { ...input, status: InputRef.current.value };
+      addTask(UpdatedInputs);
+    }
     // setInput({
     //   title: "",
     //   description: "",
@@ -113,6 +128,11 @@ export default function TaskAdd() {
       {confirmForm && (
         <div className="alert alert-success mt-3" role="alert">
           Task Creata con Successo!
+        </div>
+      )}
+      {alreadyExist && (
+        <div className="alert alert-danger mt-3" role="alert">
+          Task già esistente!
         </div>
       )}
     </form>
