@@ -56,6 +56,7 @@ export default function TaskList() {
       setSortBy(-1);
     } else if (sortBy === -1) {
       setArrowStatus(null);
+      setArrowWhen(null);
 
       setArrowTitle(false);
       setOrderBy((curr) => {

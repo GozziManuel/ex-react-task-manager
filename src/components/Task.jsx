@@ -47,6 +47,8 @@ export default function Task({
           type="checkbox"
           name="checkbox"
           id=""
+          className="form-check-input mt-3"
+          style={{ cursor: "pointer" }}
           checked={checked}
           onChange={checkboxTracing}
         />
