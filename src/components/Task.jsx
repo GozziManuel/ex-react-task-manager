@@ -13,15 +13,17 @@ export default function Task({
 }) {
   return (
     <tr>
-      <th scope="row">{i + 1}</th>
-      <td>{title}</td>
-      <td>{description}</td>
-      <td>{createdAt}</td>
+      <th scope="row " className="pt-3">
+        {i + 1}
+      </th>
+      <td className="pt-3">{title}</td>
+      <td className="pt-3">{description}</td>
+      <td className="pt-3">{createdAt}</td>
       {/* 
     //   
     //  */}
 
-      <td>
+      <td className="py-3">
         <div className="d-flex justify-content-center align-items-center tableStatus ">
           {/* Getting status Color */} {status}
           {status === "To do" ? (
@@ -37,8 +39,8 @@ export default function Task({
         // */}
         </div>
       </td>
-      <td className="text-center">
-        <Link className="btn btn-primary me-4" to={`/Task/${ParamId}`}>
+      <td className="text-center py-3">
+        <Link className="customButtonTask me-4 " to={`/Task/${ParamId}`}>
           See Task
         </Link>
         <input

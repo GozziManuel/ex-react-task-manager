@@ -55,14 +55,16 @@ export default function DetailedTask() {
         <p>{CurrentTask?.createdAt}</p>
       </div>
       <button
-        className="btn btn-danger"
+        className="me-4 customButtonTask "
+        style={{ backgroundColor: "red" }}
         // onClick={() => removeTask(CurrentTask.id)}
         onClick={() => setModalAppear(true)}
       >
         Elimina Task
       </button>
       <button
-        className="btn btn-secondary"
+        className="customButtonTask"
+        style={{ backgroundColor: "lightblue", color: "black" }}
         // onClick={() => updateTask(CurrentTask.id)}
         onClick={() => setModalEditAppear(true)}
       >

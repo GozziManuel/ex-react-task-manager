@@ -110,9 +110,18 @@ export default function UptadeModal({
                     })}
                   </select>
                 </div>
-                <button className="btn btn-secondary mt-3">Conferma</button>
                 <button
-                  className="btn btn-danger mt-3 ms-4"
+                  className="customButtonTask mt-3"
+                  style={{ backgroundColor: "lightblue", color: "black" }}
+                >
+                  Conferma
+                </button>
+                <button
+                  style={{
+                    backgroundColor: "rgba(247, 26, 26, 0.66)",
+                    color: "black",
+                  }}
+                  className="customButtonTask mt-3 ms-4"
                   onClick={setModalEditAppear}
                 >
                   Chiudi

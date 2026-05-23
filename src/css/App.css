@@ -1,3 +1,4 @@
+/* REset for NAVBAR */
 #navbar-brand1 {
   padding-top: var(--bs-navbar-brand-padding-y);
   padding-bottom: var(--bs-navbar-brand-padding-y);
@@ -7,6 +8,7 @@
   text-decoration: none;
   white-space: nowrap;
   padding-left: 15px;
+  transition: transform 0.2s ease-in;
 }
 #nav-link {
   display: block;
@@ -20,8 +22,20 @@
   transition:
     color 0.15s ease-in-out,
     background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out;
+    border-color 0.15s ease-in-out,
+    transform 0.2s ease-in;
 }
+#nav {
+  padding-left: 50px;
+}
+#nav-link:hover {
+  transform: scale(1.1);
+  color: white;
+}
+#navbar-brand1:hover {
+  transform: scale(1.1);
+}
+/* Dynamic Color For Status */
 .redStatus {
   width: 10px;
   height: 10px;
@@ -44,6 +58,7 @@
   gap: 10px;
 }
 
+/* Modal */
 .backgroundModal {
   position: fixed;
   width: 100%;
@@ -62,6 +77,8 @@
   padding: 20px;
   background-color: white;
 }
+
+/* Sort & input */
 .sorterTH {
   cursor: pointer;
 }
@@ -70,4 +87,168 @@
 }
 .inputSearch {
   width: 50%;
+}
+/* Form */
+.containerForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Rework For button */
+.customButton {
+  background-color: rgba(255, 0, 0, 0.644);
+
+  transition: all 0.2s ease-in;
+}
+.customButton:hover {
+  animation: horizontal-shaking 0.3s infinite;
+  background-color: rgba(255, 0, 0, 0.918);
+}
+
+/*  */
+.customButtonEdit {
+  background-color: rgba(255, 0, 0, 0.644);
+  margin-right: 20px;
+  padding: 10px;
+  transition: all 0.2s ease-in;
+}
+.customButtonEdit:hover {
+  background-color: rgba(255, 0, 0, 0.918);
+  animation: horizontal-shaking 0.3s infinite;
+}
+
+/*  */
+.customButtonDelete {
+  display: inline-block;
+  padding: 10px;
+  background-color: rgba(0, 204, 255, 0.411);
+  transition: all 0.2s ease-in;
+}
+.customButtonDelete:hover {
+  animation: tilt-n-move-shaking 0.3s infinite;
+
+  background-color: rgba(0, 204, 255, 0.89);
+}
+
+/*  */
+.customButtonTask {
+  display: inline-block;
+  border: solid 2px black;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+.customButtonTask:hover {
+  transform: scale(1.1);
+  background-color: rgba(128, 128, 128, 0.473);
+}
+
+/*  */
+.customButtonConfirm {
+  display: inline-block;
+  padding: 10px;
+  background-color: rgba(0, 204, 255, 0.411);
+  transition: all 0.2s ease-in;
+}
+.customButtonConfirm:hover {
+  animation: tilt-n-move-shaking 0.3s infinite;
+
+  background-color: rgba(0, 204, 255, 0.89);
+}
+
+/* ALERT */
+
+.alert {
+  border-radius: 0 !important;
+  animation: shake 0.5s ease-in-out;
+}
+.alertAnimation {
+  animation: successPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+}
+/* Animation */
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes tilt-n-move-shaking {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(0deg);
+  }
+}
+@keyframes successPop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

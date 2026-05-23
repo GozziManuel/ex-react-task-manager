@@ -11,10 +11,16 @@ export default function Modal({ removeTask, setModalAppear }) {
               <p>Sei sicuro di voler Eliminare la task?</p>
             </div>
             <div className="modal-footer ">
-              <button className="btn btn-danger me-3" onClick={removeTask}>
+              <button
+                className="me-3 customButtonEdit px-4"
+                onClick={removeTask}
+              >
                 Sì
               </button>
-              <button className="btn btn-primary" onClick={setModalAppear}>
+              <button
+                className="customButtonDelete px-4"
+                onClick={setModalAppear}
+              >
                 No
               </button>
             </div>

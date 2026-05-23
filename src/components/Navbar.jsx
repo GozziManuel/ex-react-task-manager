@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
       <NavLink id="navbar-brand1" to={"/"}>
         Home
       </NavLink>
@@ -22,7 +22,7 @@ export default function NavBar() {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <NavLink id="nav-link" to={"/TaskAdd"}>
-              Link
+              Add Task
             </NavLink>
           </li>
         </ul>

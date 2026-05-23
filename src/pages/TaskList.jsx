@@ -191,6 +191,7 @@ export default function TaskList() {
             className="form-control inputSearch"
             id="floatingInput"
             placeholder="Search Task"
+            style={{ borderRadius: "0" }}
             //
             //
             value={search}
@@ -199,7 +200,10 @@ export default function TaskList() {
 
           <label htmlFor="floatingInput">Search Task</label>
           {arrayForElimination.length > 0 ? (
-            <button onClick={() => handleRemoveMultipleTasks()}>
+            <button
+              onClick={() => handleRemoveMultipleTasks()}
+              className="customButton"
+            >
               Elimina Task Selezionate
             </button>
           ) : (
